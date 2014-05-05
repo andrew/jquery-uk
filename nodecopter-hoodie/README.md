@@ -6,3 +6,5 @@
 * Flex sensors
 * Leds
 * buttons
+
+![Hoodie Layout](layout.png)
