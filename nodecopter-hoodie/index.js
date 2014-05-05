@@ -1,8 +1,14 @@
 var five = require("johnny-five"),
     arDrone = require('ar-drone'),
-    board = new five.Board(),
     client  = arDrone.createClient();
 
-board.on("ready", function() {
-  client.takeoff();
+five.Board().on("ready", function(){
+  var leftFlexSensor = new five.Sensor("A0");
+
+  // client.takeoff();
+
+  leftFlexSensor.on("read", function(err, value){
+    console.log(value)
+    // go left or right etc
+  });
 });
