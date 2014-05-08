@@ -15,6 +15,9 @@
   "license": "MIT",
   "dependencies": {
     "ar-drone": "^0.3.2",
-    "johnny-five": "^0.7.31"
+    "ejs": "^1.0.0",
+    "express": "^3.4.6",
+    "johnny-five": "^0.7.31",
+    "socket.io": "^0.9.16"
   }
 }

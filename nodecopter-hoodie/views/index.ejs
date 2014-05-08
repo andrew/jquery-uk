@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css" media="screen">
+      .arm{
+        width:300px;
+        height:50px;
+        background:black;
+        position:absolute;
+        border-radius:5px;
+        color:white;
+        line-height:50px;
+        padding:0 10px;
+        font-weight:bold;
+        font-family:helvetica;
+      }
+      #left-arm{
+        top:300px;
+        left: 100px;
+        -webkit-transform-origin:100% 0%;
+        -webkit-transform: rotate(-40deg);
+      }
+      #right-arm{
+        top:300px;
+        left: 600px;
+        -webkit-transform-origin:0% 0%;
+        -webkit-transform: rotate(40deg);
+        text-align:right;
+      }
+      #body{
+        width:250px;
+        height:300px;
+        background:black;
+        position:absolute;
+        top:280px;
+        left:375px;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+      }
+      #hood{
+        background:black;
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+        width:120px;
+        height:120px;
+        position:absolute;
+        top:160px;
+        left:440px;
+      }
+      #hood .inner{
+        background:#222;
+        width:100px;
+        height:110px;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hood">
+      <div class='inner'>
+
+      </div>
+    </div>
+    <div class='arm' id='left-arm'>-40</div>
+    <div id='body'></div>
+    <div class='arm' id='right-arm'>40</div>
+
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+    <!-- socket.io -->
+    <script src="http://localhost:8001/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:8001');
+      socket.on('left', function(data){
+         jQuery('#left-arm')
+           .html(data.value.toFixed())
+           .css('webkitTransform', 'rotate('+data.angle+'deg)')
+      })
+      socket.on('right', function(data){
+        jQuery('#right-arm')
+          .html(data.value.toFixed())
+          .css('webkitTransform', 'rotate('+data.angle+'deg)')
+      })
+    </script>
+	</body>
+</html>
