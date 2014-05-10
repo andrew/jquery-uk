@@ -7,7 +7,7 @@
         font-family:helvetica;
       }
       .arm{
-        width:300px;
+        width:250px;
         height:50px;
         background:black;
         position:absolute;
@@ -16,19 +16,22 @@
         line-height:50px;
         padding:0 10px;
         font-size:20px;
+/*        -webkit-transition: all 0.5s ease-in-out;*/
+        border:1px solid #fff;
+        z-index:2;
       }
       #left-arm{
         top:300px;
-        left: 100px;
-        -webkit-transform-origin:100% 0%;
-        -webkit-transform: rotate(-40deg);
+        left: 130px;
+        -webkit-transform-origin:100% 50%;
+        border-right:0;
       }
       #right-arm{
         top:300px;
         left: 600px;
-        -webkit-transform-origin:0% 0%;
-        -webkit-transform: rotate(40deg);
+        -webkit-transform-origin:0% 50%;
         text-align:right;
+        border-left:0;
       }
       #body{
         width:250px;
@@ -40,6 +43,7 @@
         border-top-left-radius: 50px;
         border-top-right-radius: 50px;
         color:white;
+        z-index:0;
       }
       #hood{
         background:black;
@@ -51,33 +55,35 @@
         top:160px;
         left:440px;
       }
-      #hood .inner{
-        background:#222;
-        width:100px;
-        height:110px;
-        margin-left: 10px;
-        margin-top: 10px;
-        border-top-left-radius: 40px;
-        border-top-right-radius: 40px;
-      }
       #command{
         text-align:center;
         font-size:40px;
         margin-top:100px;
       }
+      #command-z{
+        text-align:center;
+        font-size:40px;
+      }
+      #hoodie{
+        -webkit-perspective: 1000px;
+      }
     </style>
   </head>
   <body>
-    <div id="hood">
-      <div class='inner'>
+    <div id="hoodie">
+      <div id="hood">
+        <div class='inner'>
 
+        </div>
       </div>
+      <div class='arm' id='left-arm'>-40</div>
+      <div id='body'>
+        <div id="command">Foo</div>
+        <div id="command-z">Foo</div>
+      </div>
+      <div class='arm' id='right-arm'>40</div>
     </div>
-    <div class='arm' id='left-arm'>-40</div>
-    <div id='body'>
-      <div id="command">Foo</div>
-    </div>
-    <div class='arm' id='right-arm'>40</div>
+
 
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 
@@ -85,21 +91,44 @@
     <script src="http://localhost:8001/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost:8001');
-      var leftArm = $('#left-arm')
-      var rightArm = $('#right-arm')
-      var commandText = $('#command')
-      socket.on('left', function(data){
-         leftArm
-           .html(data.angle.toFixed())
-           .css('webkitTransform', 'rotate('+data.angle+'deg)')
-      })
-      socket.on('right', function(data){
+      var leftArm = $('#left-arm');
+      var rightArm = $('#right-arm');
+      var commandText = $('#command');
+      var commandZText = $('#command-z');
+      var leftZ = rightZ = 40;
+      var leftY = rightY = 40;
+
+      function moveArms() {
+        leftArm
+          .html(leftZ.toFixed() + ',' + leftY.toFixed())
+          .css('webkitTransform', 'rotateY('+leftZ+'deg) rotateZ('+leftY+'deg)')
         rightArm
-          .html(data.angle.toFixed())
-          .css('webkitTransform', 'rotate('+data.angle+'deg)')
+          .html(rightZ.toFixed() + ',' + rightY.toFixed())
+          .css('webkitTransform', 'rotateY('+-rightZ+'deg) rotateZ('+rightY+'deg)')
+      }
+
+      socket.on('leftY', function(data){
+        leftY = data.angle
+        moveArms()
       })
+      socket.on('rightY', function(data){
+        rightY = data.angle
+        moveArms()
+      })
+      socket.on('rightZ', function(data){
+        rightZ = data.angle
+        moveArms()
+      })
+      socket.on('leftZ', function(data){
+        leftZ = data.angle
+        moveArms()
+      })
+
       socket.on('command', function(data){
         commandText.html(data.command)
+      })
+      socket.on('commandZ', function(data){
+        commandZText.html(data.command)
       })
     </script>
 	</body>
