@@ -1,6 +1,26 @@
 var five = require("johnny-five"),
     arDrone = require('ar-drone'),
-    client  = arDrone.createClient();
+    droneControl = arDrone.createUdpControl();
+
+var ref = pcmd = {};
+
+var speed = 0.5;
+
+function takeoff() {
+  ref.fly = true;
+  ref.emergency = false;
+}
+
+function land() {
+  pcmd = {};
+  ref.fly = false;
+}
+
+setInterval(function() {
+  droneControl.ref(ref);
+  droneControl.pcmd(pcmd);
+  droneControl.flush();
+}, 30);
 
 var express = require('express');
 var ejs = require ('ejs')
@@ -40,22 +60,32 @@ function move() {
   // up
   if(left > upperLimit && right > upperLimit){
     command = 'up'
+    pcmd.up = speed;
+    pcmd.left = 0;
   }
   // down
   else if(left < lowerLimit && right < lowerLimit){
     command = 'down'
+    pcmd.down = speed;
+    pcmd.left = 0;
   }
   // left
   else if(left < lowerLimit && right > upperLimit){
     command = 'left'
+    pcmd.up = 0;
+    pcmd.left = speed;
   }
   // right
   else if(left > upperLimit && right < lowerLimit){
     command = 'right'
+    pcmd.up = 0;
+    pcmd.right = speed;
   }
   // hover
   else {
     command = 'hover'
+    pcmd.down = 0;
+    pcmd.left = 0;
   }
   io.sockets.emit('command', {command: command, left: left, right: right});
   moveZ()
@@ -71,18 +101,26 @@ function moveZ(){
   // up
   if(left > upperLimitZ && right > upperLimitZ){
     command = 'forward'
+    pcmd.front = speed;
+    pcmd.clockwise = 0;
   }
   // down
   else if(left < lowerLimitZ && right < lowerLimitZ){
     command = 'back'
+    pcmd.back = speed;
+    pcmd.clockwise = 0;
   }
   // left
   else if(left < lowerLimitZ && right > upperLimitZ){
     command = 'clockwise'
+    pcmd.front = 0;
+    pcmd.clockwise = speed;
   }
   // right
   else if(left > upperLimitZ && right < lowerLimitZ){
     command = 'counterClockwise'
+    pcmd.front = 0;
+    pcmd.counterClockwise = speed;
   }
   // hover
   else {

@@ -16,7 +16,6 @@
         line-height:50px;
         padding:0 10px;
         font-size:20px;
-/*        -webkit-transition: all 0.5s ease-in-out;*/
         border:1px solid #fff;
         z-index:2;
       }
@@ -72,31 +71,24 @@
   <body>
     <div id="hoodie">
       <div id="hood">
-        <div class='inner'>
-
-        </div>
+        <div class='inner'></div>
       </div>
-      <div class='arm' id='left-arm'>-40</div>
+      <div class='arm' id='left-arm'></div>
       <div id='body'>
-        <div id="command">Foo</div>
-        <div id="command-z">Foo</div>
+        <div id="command"></div>
       </div>
-      <div class='arm' id='right-arm'>40</div>
+      <div class='arm' id='right-arm'></div>
     </div>
 
-
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-
-    <!-- socket.io -->
     <script src="http://localhost:8001/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost:8001');
       var leftArm = $('#left-arm');
       var rightArm = $('#right-arm');
       var commandText = $('#command');
-      var commandZText = $('#command-z');
-      var leftZ = rightZ = 40;
-      var leftY = rightY = 40;
+      var leftZ = rightZ = leftY = rightY = 0;
+      var commandY = commandZ = 'hover';
 
       function moveArms() {
         leftArm
@@ -107,29 +99,29 @@
           .css('webkitTransform', 'rotateY('+-rightZ+'deg) rotateZ('+rightY+'deg)')
       }
 
-      socket.on('leftY', function(data){
-        leftY = data.angle
-        moveArms()
-      })
-      socket.on('rightY', function(data){
-        rightY = data.angle
-        moveArms()
-      })
-      socket.on('rightZ', function(data){
-        rightZ = data.angle
-        moveArms()
-      })
-      socket.on('leftZ', function(data){
-        leftZ = data.angle
-        moveArms()
-      })
+      function updateCommands() {
+        if(commandY === 'hover' && commandZ === 'hover'){
+          text = 'hover'
+        } else {
+          if(commandY === 'hover'){
+            text = commandZ
+          } else if(commandZ == 'hover'){
+            text = commandY
+          } else {
+            text = commandY + '<br>+<br>' + commandZ
+          }
+        }
+        commandText.html(text)
+      }
 
-      socket.on('command', function(data){
-        commandText.html(data.command)
-      })
-      socket.on('commandZ', function(data){
-        commandZText.html(data.command)
-      })
+      setInterval(function(){ updateCommands(); moveArms(); },50)
+
+      socket.on('leftY',  function(data){ leftY  = data.angle })
+      socket.on('rightY', function(data){ rightY = data.angle })
+      socket.on('rightZ', function(data){ rightZ = data.angle })
+      socket.on('leftZ',  function(data){ leftZ  = data.angle })
+      socket.on('command',  function(data){ commandY = data.command })
+      socket.on('commandZ', function(data){ commandZ = data.command })
     </script>
 	</body>
 </html>
