@@ -2,6 +2,10 @@
 <html>
   <head>
     <style type="text/css" media="screen">
+      html, body{
+        font-weight:bold;
+        font-family:helvetica;
+      }
       .arm{
         width:300px;
         height:50px;
@@ -11,8 +15,7 @@
         color:white;
         line-height:50px;
         padding:0 10px;
-        font-weight:bold;
-        font-family:helvetica;
+        font-size:20px;
       }
       #left-arm{
         top:300px;
@@ -36,6 +39,7 @@
         left:375px;
         border-top-left-radius: 50px;
         border-top-right-radius: 50px;
+        color:white;
       }
       #hood{
         background:black;
@@ -56,6 +60,11 @@
         border-top-left-radius: 40px;
         border-top-right-radius: 40px;
       }
+      #command{
+        text-align:center;
+        font-size:40px;
+        margin-top:100px;
+      }
     </style>
   </head>
   <body>
@@ -65,7 +74,9 @@
       </div>
     </div>
     <div class='arm' id='left-arm'>-40</div>
-    <div id='body'></div>
+    <div id='body'>
+      <div id="command">Foo</div>
+    </div>
     <div class='arm' id='right-arm'>40</div>
 
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -74,15 +85,21 @@
     <script src="http://localhost:8001/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost:8001');
+      var leftArm = $('#left-arm')
+      var rightArm = $('#right-arm')
+      var commandText = $('#command')
       socket.on('left', function(data){
-         jQuery('#left-arm')
-           .html(data.value.toFixed())
+         leftArm
+           .html(data.angle.toFixed())
            .css('webkitTransform', 'rotate('+data.angle+'deg)')
       })
       socket.on('right', function(data){
-        jQuery('#right-arm')
-          .html(data.value.toFixed())
+        rightArm
+          .html(data.angle.toFixed())
           .css('webkitTransform', 'rotate('+data.angle+'deg)')
+      })
+      socket.on('command', function(data){
+        commandText.html(data.command)
       })
     </script>
 	</body>
