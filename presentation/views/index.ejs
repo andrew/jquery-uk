@@ -24,6 +24,12 @@
       .inverse h3{
         color:pink;
       }
+      .emoji{
+        width:100px;
+      }
+      #output{
+        text-align:center;
+      }
     </style>
   </head>
   <body>
@@ -81,9 +87,11 @@ http://localhost:5100/?end=4,2,3
   * What's a Makey makey?
   * Circuit diagram
   * Code example
-  *  Demo
 ---
-<iframe width='100%' height='500px' id='slide15' src="" frameborder="0" allowfullscreen></iframe>
+# Demo
+<div id="output"></div>
+---
+<iframe width='100%' height='500px' id='slide16' src="" frameborder="0" allowfullscreen></iframe>
 ???
 http://localhost:5100/?end=5,7,6
 ---
@@ -93,7 +101,7 @@ http://localhost:5100/?end=5,7,6
   * Code example
   * Demo
 ---
-<iframe width='100%' height='500px' id='slide17' src="" frameborder="0" allowfullscreen></iframe>
+<iframe width='100%' height='500px' id='slide18' src="" frameborder="0" allowfullscreen></iframe>
 ???
 http://localhost:5100/?end=10,9,8
 ---
@@ -104,7 +112,7 @@ http://localhost:5100/?end=10,9,8
   * Code example
   * Demo
 ---
-<iframe width='100%' id='slide19' height='600px' src="" frameborder="0" allowfullscreen></iframe>
+<iframe width='100%' id='slide20' height='600px' src="" frameborder="0" allowfullscreen></iframe>
 ???
 http://localhost:5200/
 ---
@@ -116,8 +124,8 @@ http://localhost:5200/
 ---
     </textarea>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
-    </script>
+    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script src="emojify.js"></script>
     <script type="text/javascript">
       var slideshow = remark.create({
         ratio: '16:9',
@@ -132,6 +140,37 @@ http://localhost:5200/
           $("#slide"+slide.number)[0].src=slide.notes[0]
         }
       });
+      var output = $('#output')
+      var mapping = {
+        87: ':apple:',
+        81: ':banana:',
+        79: ':lemon:',
+        80: ':pear:',
+        70: ':melon:',
+        71: ':tangerine:'
+      }
+      var keys = {}
+      var last = ''
+
+      function update() {
+        var pressedKeys = Object.keys(keys)
+        var html = pressedKeys.map(function(e){ return emojify.replace(mapping[e]) }).join('')
+        if(html != last){
+          output.html(html)
+          last = html
+        }
+      }
+
+      $(document).keydown(function (e) {
+        keys[e.which] = true;
+        update()
+      });
+
+      $(document).keyup(function (e) {
+        delete keys[e.which];
+        update()
+      });
+
     </script>
   </body>
 </html>
