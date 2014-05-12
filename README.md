@@ -13,10 +13,11 @@ https://docs.google.com/document/d/1Nu51b75kLNTd2LHy5Yqhu-y3jT4rBgQcdRE-iHgugr8/
 
 ## TODO
 
+* remap F and P of makey-makey to avoid presentor conflicts
+* add sound effects to keyboard
 * Bigger font on slides
 * Proper slide content
 * Twitter Hat demo
-* Emoji fruit keyboard code
 * nodecopter takeoff and land
 * circuit diagrams
 * code examples
