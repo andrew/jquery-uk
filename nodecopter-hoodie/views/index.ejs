@@ -5,6 +5,8 @@
       html, body{
         font-weight:bold;
         font-family:helvetica;
+        background:#000;
+        margin:0;
       }
       .arm{
         width:250px;
@@ -42,7 +44,7 @@
         border-top-left-radius: 50px;
         border-top-right-radius: 50px;
         color:white;
-        z-index:0;
+        z-index:1;
       }
       #hood{
         background:black;
@@ -65,19 +67,40 @@
       }
       #hoodie{
         -webkit-perspective: 1000px;
+        position:absolute;
+        left:-180px;
+        top:-100px;
+      }
+      #frame{
+        width:1050px;
+        height:600px;
+        position:absolute;
+        background:#fff;
+      }
+      #dronestream{
+        position:absolute;
+        right:0px;
+        top:120px;
+        z-index:0;
+        overflow:none;
+
       }
     </style>
   </head>
   <body>
-    <div id="hoodie">
-      <div id="hood">
-        <div class='inner'></div>
-      </div>
-      <div class='arm' id='left-arm'></div>
-      <div id='body'>
-        <div id="command"></div>
-      </div>
-      <div class='arm' id='right-arm'></div>
+    <div id="frame">
+        <div id="hoodie">
+          <div id="hood">
+            <div class='inner'></div>
+          </div>
+          <div class='arm' id='left-arm'></div>
+          <div id='body'>
+            <div id="command"></div>
+          </div>
+          <div class='arm' id='right-arm'></div>
+        </div>
+
+        <iframe width='440px' id='dronestream' height='300px' src="http://localhost:5300" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
