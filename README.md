@@ -15,7 +15,6 @@ https://docs.google.com/document/d/1Nu51b75kLNTd2LHy5Yqhu-y3jT4rBgQcdRE-iHgugr8/
 
 * Bigger font on slides
 * Proper slide content
-* AR Drone video stream
 * Twitter Hat demo
 * Emoji fruit keyboard code
 * nodecopter takeoff and land
