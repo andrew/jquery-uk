@@ -129,7 +129,7 @@ function moveZ(){
   io.sockets.emit('commandZ', {command: command, left: left, right: right});
 }
 
-five.Board().on("ready", function(){
+five.Board({port:"/dev/cu.usbmodem141521"}).on("ready", function(){
   var leftYFlexSensor = new five.Sensor("A0");
   var rightYFlexSensor = new five.Sensor("A1");
   var leftZFlexSensor = new five.Sensor("A2");
