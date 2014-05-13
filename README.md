@@ -13,11 +13,11 @@ https://docs.google.com/document/d/1Nu51b75kLNTd2LHy5Yqhu-y3jT4rBgQcdRE-iHgugr8/
 
 ## TODO
 
-* add sound effects to keyboard
+* nodecopter takeoff and land
 * Bigger font on slides
 * Proper slide content
-* Twitter Hat demo
-* nodecopter takeoff and land
 * circuit diagrams
 * code examples
 * wrap up section
+* add sound effects to keyboard
+* Twitter Hat demo
