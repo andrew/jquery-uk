@@ -8,6 +8,15 @@
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
       }
+      body{
+        font-family:'Yanone Kaffeesatz';
+      }
+      .remark-slide-content p, .remark-slide-content li{
+        font-size:40px;
+      }
+      .remark-slide-content h1{
+        font-size:80px;
+      }
       .inverse {
         background: #272822;
         color: #777872;
@@ -22,10 +31,32 @@
       }
       .emoji{
         width:100px;
+        display:inline;
       }
       #output{
         text-align:center;
         margin-top:150px
+      }
+      img{
+        display:block;
+        margin:0 auto;
+      }
+      .bio{
+        margin-top:100px;
+      }
+      .bio img{
+        margin:0 100px 0 0;
+        float:left;
+      }
+      .bio li{
+        padding-left:45px;
+        list-style:none;
+      }
+      li{
+        line-height:60px
+      }
+      iframe{
+        font-size:10px
       }
     </style>
   </head>
@@ -40,18 +71,25 @@ class: center, middle, inverse
 ---
 layout: false
 
-# Andrew Nesbitt
-![Andrew](/images/andrew.png)
-
-* Bath, UK
-* @teabass
-* GitHub
+<div class='bio'>
+  <img src="/images/andrew.png" />
+  <h1>Andrew Nesbitt</h1>
+  <ul>
+    <li>Bath, UK</li>
+    <li>@teabass</li>
+    <li>GitHub</li>
+  </ul>
+</div>
 ---
-# Francis Gulotta
-![Francis](/images/francis.png)
-* NYC
-* @reconbot
-* Wizard Development
+<div class='bio'>
+  <img src="/images/francis.png" />
+  <h1>Francis Gulotta</h1>
+  <ul>
+    <li>NYC</li>
+    <li>@reconbot</li>
+    <li>Wizard Development</li>
+  </ul>
+</div>
 ---
 template: inverse
 # Hardware hacking with JavaScript
@@ -111,7 +149,7 @@ template: inverse
 * Mashing up software and hardware
 ---
 template: inverse
-# Demo Time
+# Demo Driven Development
 ---
 <iframe width='100%' id='slide20' height='500px' src="" frameborder="0" allowfullscreen></iframe>
 ???
@@ -120,7 +158,6 @@ http://localhost:5100/?end=4,2,3
 # Makey Makey
 ![Makey Makey](/images/makey-makey.jpg)
 ---
-# Makey Makey
 ![Makey Makey](/images/makery-diagram.png)
 ---
 # Makey Makey
@@ -134,7 +171,7 @@ template: inverse
 # Emoji Fruit Piano
 ### Patent Pending
 ---
-# Demo
+# Emoji Fruit Piano Demo
 <div id="output"></div>
 ---
 <iframe width='100%' height='500px' id='slide27' src="" frameborder="0" allowfullscreen></iframe>
@@ -151,11 +188,11 @@ http://localhost:5100/?end=5,7,6
 * code example
 ---
 template: inverse
-# Internet connected hat
+# The Internet Connected Hat
 <h3>&nbsp;</h3>
 ---
 template: inverse
-# Internet connected hat
+# The Internet Connected Hat
 ### Patent Pending
 ---
 # Demo
@@ -164,23 +201,20 @@ template: inverse
 ???
 http://localhost:5100/?end=10,9,8
 ---
-# Arduino
-* arduino image
+# Arduino Uno
+![](/images/arduino.png)
+---
+![](/images/hoodie.png)
+---
+![](/images/hoodie-circuit.png)
 ---
 # Arduino
-* arduino circuit diagram
----
-# Johnny-five
-* johnny-five image
----
-# Johnny-five
 * code example
 ---
-# AR Drone
-* image
+# Parrot AR Drone 2.0
+![](/images/ardrone.jpg)
 ---
-# AR Drone
-* image with labels
+![](/images/labeled-ardrone.png)
 ---
 # AR Drone
 * code example
@@ -200,7 +234,6 @@ template: inverse
 <h1>H.O.O.D.I.E</h1>
 <h3>Patent Pending</h3>
 ---
-# Demo
 <iframe width='100%' id='slide45' height='600px' src="" frameborder="0" allowfullscreen></iframe>
 ???
 http://localhost:5200/
