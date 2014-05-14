@@ -2,18 +2,30 @@ var five = require("johnny-five"),
     arDrone = require('ar-drone'),
     droneControl = arDrone.createUdpControl();
 
-var ref = pcmd = {};
+var ref = {fly: false}
+var pcmd = {};
 
-var speed = 0.5;
+var speed = 0.2;
 
 function takeoff() {
+  console.log('taking off')
   ref.fly = true;
   ref.emergency = false;
 }
 
 function land() {
+  console.log('landing')
   pcmd = {};
   ref.fly = false;
+  ref.emergency = true;
+}
+
+function toggleFlying(){
+  if(ref.fly){
+    land()
+  } else {
+    takeoff()
+  }
 }
 
 setInterval(function() {
@@ -129,11 +141,18 @@ function moveZ(){
   io.sockets.emit('commandZ', {command: command, left: left, right: right});
 }
 
-five.Board({port:"/dev/cu.usbmodem141521"}).on("ready", function(){
+five.Board().on("ready", function(){
+  var button = new five.Button(7);
   var leftYFlexSensor = new five.Sensor("A0");
   var rightYFlexSensor = new five.Sensor("A1");
   var leftZFlexSensor = new five.Sensor("A2");
   var rightZFlexSensor = new five.Sensor("A3");
+
+  button.on("up", function() {
+    // console.log("up");
+    toggleFlying()
+  });
+
 
   leftYFlexSensor.on("read", function(err, value){
     var a= five.Fn.map(value, 100, 500, -90, 90)
