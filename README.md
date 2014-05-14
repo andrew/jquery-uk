@@ -13,7 +13,6 @@ https://docs.google.com/document/d/1Nu51b75kLNTd2LHy5Yqhu-y3jT4rBgQcdRE-iHgugr8/
 
 ## TODO
 
-* circuit diagrams
 * code examples
 * Add meetup slides (nodebots, nodecopter)
-* Twitter Hat demo
+* Twitter Hat demo (plus code examples and circuit diagrams)
