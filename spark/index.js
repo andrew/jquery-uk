@@ -46,7 +46,7 @@ function updateCount(tweet) {
 function raiseServo() {
   console.log('raise Servo')
   setTimeout(function(){
-    core1.run('servo', 90, function(resp){});
+    core1.run('servo', 105, function(resp){});
   }, 1000)
   servoRaised = true
 }
@@ -71,7 +71,7 @@ function reset(){
     console.log(value, 'off')
     core1.run('ledoff', value, function(e){});
   });
-  core1.run('servo', 10, function(resp){});
+  core1.run('servo', 15, function(resp){});
 }
 
 function flashLEDs(){
