@@ -1,9 +1,9 @@
 var Sparky = require('sparky')
 
-// var core1 = new Sparky({
-//     deviceId: '50ff6b065067545622150387',
-//     token: '9d1342f907685e3f371c3f79efed2f7bbd173f2d',
-// })
+var core1 = new Sparky({
+    deviceId: '50ff6b065067545622150387',
+    token: '9d1342f907685e3f371c3f79efed2f7bbd173f2d',
+})
 
 var Twit = require('twit')
 
@@ -16,14 +16,16 @@ var T = new Twit({
 
 var stream = T.stream('statuses/filter', { track: 'google' })
 
-var keyword = 'sparkhat' // try google for testing
+var keyword = 'google' // try google for testing
 var count = 0;
-var max = 50;
+var max = 100;
 var LEDcount = 5;
 var range = max / LEDcount;
+var activeLEDs = []
 var LEDs = ['D0', 'D1', 'D2', 'D3', 'D4']
+var servoRaised = false;
 
-turnOffLEDs()
+reset()
 
 stream.on('tweet', updateCount)
 
@@ -35,7 +37,7 @@ function updateCount(tweet) {
   activateLEDs()
 
   // raise servo arm when we reach the goal
-  if(count>=max){
+  if(count>=max && servoRaised === false){
     raiseServo()
     flashLEDs()
   }
@@ -43,7 +45,8 @@ function updateCount(tweet) {
 
 function raiseServo() {
   console.log('raise Servo')
-  // core1.run('servo', i, function(resp){});
+  core1.run('servo', 90, function(resp){});
+  servoRaised = true
 }
 
 function activateLEDs() {
@@ -52,16 +55,21 @@ function activateLEDs() {
   current = LEDcount - inactive - 2
 
   if(current > -1){
-    console.log('D' + current, 'on')
-    // core1.run('ledon', 'D' + current, function(e){});
+    port = 'D' + current
+    if(activeLEDs.indexOf(port) < 0){
+      activeLEDs.push(port)
+      console.log(port, 'on')
+      core1.run('ledon', port, function(e){});
+    }
   }
 }
 
-function turnOffLEDs(){
+function reset(){
   LEDs.forEach(function (value, index) {
     console.log(value, 'off')
-    // core1.run('ledoff', value, function(e){});
+    core1.run('ledoff', value, function(e){});
   });
+  core1.run('servo', 10, function(resp){});
 }
 
 function flashLEDs(){
@@ -69,12 +77,12 @@ function flashLEDs(){
     setInterval(function() {
       // on
       console.log(value, 'on')
-      // core1.run('ledon', value, function(e){});
+      core1.run('ledon', value, function(e){});
       setTimeout(function(){
         // off
         console.log(value, 'off')
-        // core1.run('ledoff', value, function(e){});
-      }, 1000)
-    }, 2000)
+        core1.run('ledoff', value, function(e){});
+      }, 1500)
+    }, 3000)
   });
 }
