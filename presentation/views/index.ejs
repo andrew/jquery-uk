@@ -341,7 +341,8 @@ template: inverse
           $('iframe').attr('src', '');
         }
       });
-      var output = $('#output')
+
+      var output = $('#output');
       var mapping = {
         76: ':apple:',  // L
         65: ':banana:', // A
@@ -349,27 +350,27 @@ template: inverse
         87: ':pear:',   // W
         68: ':melon:',  // D
         71: ':tangerine:' // G
-      }
-      var keys = {}
-      var last = ''
+      };
+      var keys = {};
+      var last = '';
 
       function update() {
-        var pressedKeys = Object.keys(keys)
-        var html = pressedKeys.map(function(e){ return emojify.replace(mapping[e]) }).join('')
+        var pressedKeys = Object.keys(keys);
+        var html = pressedKeys.map(function(e){ return emojify.replace(mapping[e]) }).join('');
         if(html != last){
-          output.html(html)
-          last = html
+          output.html(html);
+          last = html;
         }
       }
 
       $(document).keydown(function (e) {
         keys[e.which] = true;
-        update()
+        update();
       });
 
       $(document).keyup(function (e) {
         delete keys[e.which];
-        update()
+        update();
       });
 
     </script>

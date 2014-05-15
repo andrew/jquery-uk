@@ -1,5 +1,5 @@
 var express = require('express');
-var ejs = require ('ejs')
+var ejs = require('ejs');
 var app = express();
 
 app.configure(function() {
