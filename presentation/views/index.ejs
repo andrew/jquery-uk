@@ -197,6 +197,80 @@ template: inverse
 * Mashing up software and hardware
 ---
 template: inverse
+# "A blinking light is the hello world of robotics."
+## -Sara Chipps
+
+---
+# Blink for Arduino
+
+```c++
+int led = 13;
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize the digital pin as an output.
+  pinMode(led, OUTPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);               // wait for a second
+  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);               // wait for a second
+}
+
+```
+---
+# Blink for Johnny Five
+
+```js
+var five = require("johnny-five");
+var board = new five.Board();
+
+// Connect to the arudino
+board.on("ready", function() {
+  // Create a new Led object on pin 13
+  var led = new five.Led(13);
+  led.blink(); // blink!
+});
+```
+---
+class: center
+#Das Blinkenlights
+![Arduino Blinking](/images/led-strobe.gif)
+---
+
+![](/images/ed209.jpg)
+
+---
+# ED 209
+
+```js
+var ED = require('johhny-five/eg/ed.js');
+
+// Create a new Enforcer Droid
+var ed209 = new ED({
+  // assign servos
+  right: { hip: 9, foot: 11 },
+  left: { hip: 10, foot: 12 }
+});
+
+// Stand upright!
+ed209.attn();
+
+// Walk forward!
+ed209.fwd();
+
+// another Rick Waldron creation
+
+```
+---
+class: center
+#ED 209
+![ED bot](/images/ed-walking.gif)
+---
+template: inverse
 # Demo Driven Development
 ---
 <iframe width='100%' id='slide21' height='500px' src="" frameborder="0" allowfullscreen></iframe>
