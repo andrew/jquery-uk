@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "sparky": "^0.1.1"
+    "sparky": "^0.1.1",
+    "twit": "^1.1.15"
   }
 }
