@@ -280,13 +280,13 @@ template: inverse
           scroll: false
         }
       });
-      slideshow.on('showSlide', function (slide) {
+
+      slideshow.on('afterShowSlide', function (slide) {
         if(slide.notes[0]){
-          console.log("#slide"+slide.number)
-          console.log(slide.notes[0])
-          $("#slide"+slide.number)[0].src=slide.notes[0]
+          console.log("set iframe on slide " + slide.number);
+          $('.remark-visible').find('iframe').attr('src', slide.notes[0]);
         } else {
-          $('iframe').attr('src', '')
+          $('iframe').attr('src', '');
         }
       });
       var output = $('#output')
