@@ -67,41 +67,41 @@ var upperLimit = 30;
 var lowerLimit = -30;
 
 function move() {
-  var left = leftY
-  var right = rightY*-1
+  var left = leftY;
+  var right = rightY*-1;
 
   // up
   if(left > upperLimit && right > upperLimit){
-    command = 'up'
+    command = 'up';
     pcmd.up = speed;
     pcmd.left = 0;
   }
   // down
   else if(left < lowerLimit && right < lowerLimit){
-    command = 'down'
+    command = 'down';
     pcmd.down = speed;
     pcmd.left = 0;
   }
   // left
   else if(left < lowerLimit && right > upperLimit){
-    command = 'left'
+    command = 'left';
     pcmd.up = 0;
     pcmd.left = speed;
   }
   // right
   else if(left > upperLimit && right < lowerLimit){
-    command = 'right'
+    command = 'right';
     pcmd.up = 0;
     pcmd.right = speed;
   }
   // hover
   else {
-    command = 'hover'
+    command = 'hover';
     pcmd.down = 0;
     pcmd.left = 0;
   }
   io.sockets.emit('command', {command: command, left: left, right: right});
-  moveZ()
+  moveZ();
 }
 
 var upperLimitZ = 35;
@@ -152,7 +152,6 @@ var onReady = function(){
   var rightZFlexSensor = new five.Sensor("A3");
 
   button.on("up", function() {
-    // console.log("up");
     toggleFlying();
   });
 
