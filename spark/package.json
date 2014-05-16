@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "sparky": "^0.1.1",
-    "twit": "^1.1.15"
+    "twit": "^1.1.15",
+    "ejs": "^1.0.0",
+    "express": "^3.4.6"
   }
 }

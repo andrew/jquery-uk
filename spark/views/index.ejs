@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css" media="screen">
+      html, body{
+        font-weight:bold;
+        font-family:helvetica;
+        text-align:center;
+        font-size:100px;
+        margin:50px 0 0;
+      }
+      #count{
+        margin-top:50px;
+        font-size:200px;
+      }
+    </style>
+  </head>
+  <body>
+    Tweet: #<%= hashtag %>
+    <div id="count">
+      0
+    </div>
+    <script src="jquery-2.1.0.min.js"></script>
+    <script src="http://localhost:8002/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:8002');
+      var counter = $('#count')
+      var notFlashing = true;
+      socket.on('count',  function(data){
+        counter.text(data)
+        if(data>=40 && notFlashing){
+          setInterval(function() {
+            $('body').css('background-color', '#'+Math.floor(Math.random()*16777215).toString(16))
+            $('body').css('color', '#'+Math.floor(Math.random()*16777215).toString(16))
+          }, 200)
+          notFlashing = false;
+        }
+      })
+    </script>
+  </body>
+</html>
