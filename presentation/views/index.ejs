@@ -199,14 +199,33 @@ template: inverse
 http://localhost:5100/?end=5,7,6
 ---
 # Spark Core
-* spark cloud?
-* Spark core image
+![Spark](/images/spark.jpg)
+---
+# Spark.io
+* Open source microcontroller
+* Arduino compatible
+* Wifi enabled
+* Cloud certified&reg;
 ---
 # Spark Core
 * circuit diagram
 ---
 # Spark Core
-* code example
+`npm install sparky`
+```JS
+var Sparky = require('sparky')
+
+var core = new Sparky({
+  deviceId: 'your device id',
+  token: 'your access token',
+})
+
+core.digitalWrite('D7', 'HIGH');
+
+core.digitalRead('D0', function(val){
+  console.log(val)
+});
+```
 ---
 template: inverse
 # The Internet Connected Hat
@@ -328,6 +347,9 @@ class: center
 ![](/images/labeled-ardrone.png)
 ---
 # AR Drone
+
+`npm install ar-drone`
+
 ```javascript
 var arDrone = require('ar-drone');
 var client = arDrone.createClient();
