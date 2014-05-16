@@ -1,5 +1,6 @@
 var five = require("johnny-five"),
     arDrone = require('ar-drone'),
+    serialport = require('serialport'),
     droneControl = arDrone.createUdpControl();
 
 var ref = {fly: false}
@@ -141,7 +142,9 @@ function moveZ(){
   io.sockets.emit('commandZ', {command: command, left: left, right: right});
 }
 
-five.Board().on("ready", function(){
+
+var onReady = function(){
+  console.log("ready to robot");
   var button = new five.Button(7);
   var leftYFlexSensor = new five.Sensor("A0");
   var rightYFlexSensor = new five.Sensor("A1");
@@ -150,35 +153,53 @@ five.Board().on("ready", function(){
 
   button.on("up", function() {
     // console.log("up");
-    toggleFlying()
+    toggleFlying();
   });
 
 
   leftYFlexSensor.on("read", function(err, value){
-    var a= five.Fn.map(value, 100, 500, -90, 90)
-    leftY = five.Fn.constrain(a, -80, 80)
+    var a= five.Fn.map(value, 100, 500, -90, 90);
+    leftY = five.Fn.constrain(a, -80, 80);
     io.sockets.emit('leftY', { angle: leftY, value: value });
-    move()
+    move();
   });
   rightYFlexSensor.on("read", function(err, value){
-    var a = five.Fn.map(value, 400, 100, -90, 90)
-    rightY = five.Fn.constrain(a, -80, 80)
+    var a = five.Fn.map(value, 400, 100, -90, 90);
+    rightY = five.Fn.constrain(a, -80, 80);
     io.sockets.emit('rightY', { angle: rightY, value: value });
-    move()
+    move();
   });
 
   leftZFlexSensor.on("read", function(err, value){
-    var a= five.Fn.map(value, 550, 330, -60, 60)
-    leftZ = five.Fn.constrain(a, -60, 60)
+    var a= five.Fn.map(value, 550, 330, -60, 60);
+    leftZ = five.Fn.constrain(a, -60, 60);
     io.sockets.emit('leftZ', { angle: leftZ, value: value });
-    move()
+    move();
   });
 
   rightZFlexSensor.on("read", function(err, value){
-    var a = five.Fn.map(value, 500, 200, -60, 60)
-    rightZ = five.Fn.constrain(a, -60, 60)
+    var a = five.Fn.map(value, 500, 200, -60, 60);
+    rightZ = five.Fn.constrain(a, -60, 60);
     io.sockets.emit('rightZ', { angle: rightZ, value: value });
-    move()
+    move();
   });
 
+};
+
+
+var board;
+serialport.list(function(err, ports){
+  ports = ports.filter(function(port){
+    return port.manufacturer.match(/arduino/i);
+  });
+  console.log(ports);
+
+  var arduino = ports.shift().comName;
+  console.log("connecting to " + arduino);
+  board = new five.Board({
+    port: arduino,
+    repl: false,
+    debug: true
+  });
+  board.on("ready", onReady);
 });
