@@ -76,7 +76,9 @@ function updateCount(tweet) {
 function raiseServo() {
   console.log('raise Servo')
   setTimeout(function(){
-    core1.run('servo', 105, function(resp){});
+    setInterval(function() {
+      core1.run('servo', 105, function(resp){});
+    }, 10000)
   }, 1000)
   servoRaised = true
 }
