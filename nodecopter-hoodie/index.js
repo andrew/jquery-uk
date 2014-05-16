@@ -54,7 +54,7 @@ app.get("/", function(req, res) {
   return res.render('index.ejs');
 });
 
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 5200;
 app.listen(port);
 console.log("Listening on Port '" + port + "'");
 

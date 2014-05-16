@@ -18,6 +18,6 @@ app.get("/", function(req, res) {
   return res.render('index.ejs', {end: req.query.end});
 });
 
-var port = process.env.PORT || 7000;
+var port = process.env.PORT || 5100;
 app.listen(port);
 console.log("Listening on Port '" + port + "'");
