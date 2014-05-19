@@ -14,4 +14,4 @@ You can comment out everything but the slot machine and the presentation in the 
 
 ## Copyright
 
-Copyright (c) 2013 Andrew Nesbitt. See [LICENSE](LICENSE) for details.
+Copyright (c) 2013 Andrew Nesbitt and Francis Gulotta. See [LICENSE](LICENSE) for details.
